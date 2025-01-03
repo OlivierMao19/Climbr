@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Climbfy",
-    "slug": "Climbfy",
+    "name": "Climbr",
+    "scheme": "climbr",
+    "slug": "Climbr",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
