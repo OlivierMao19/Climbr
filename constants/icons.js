@@ -11,6 +11,8 @@ import logout from "../assets/icons/logout.png";
 import play from "../assets/icons/play.png";
 import activities from "../assets/icons/activities.png";
 import gyms from "../assets/icons/dumbbell.png";
+import eye from "../assets/icons/eye.png";
+import eyehide from "../assets/icons/eye-hide.png";
 
 
 export default {
@@ -27,4 +29,6 @@ export default {
   logout,
   activities,
   gyms,
+  eye,
+  eyehide,
 };
