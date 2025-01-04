@@ -5,6 +5,7 @@ import { images } from '../../constants';
 import ClimbItem from '../../components/ClimbItem';
 import EmptyState from '../../components/EmptyState';
 import CustomButton from '../../components/CustomButton';
+import Dropdown from '../../components/Dropdown';
 
 const climbs = [{ id: '1', name: 'Challenging Route', grade: 'Hard', gym: 'Awesome Gym' },
 { id: '2', name: 'Easy Route', grade: 'Easy', gym: 'Beginner Gym' },]
@@ -21,10 +22,15 @@ const Activities = () => {
 
     const filteredClimbs = filterClimbs(climbs, filterAttribute);
 
+    const isNotEmpty = (data) => {
+        console.log(data.length);
+        return !(data.length === 0);
+    }
+
     return (
         <SafeAreaView className="bg-primary h-full">
             <FlatList
-                data={[]}
+                data={ climbs }
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                     <ClimbItem climb={item} />
@@ -35,10 +41,9 @@ const Activities = () => {
                             <View>
                                 <Text className="font-psemibold text-3xl text-white">Activities</Text>
                             </View>
-                            <CustomButton
-                                title="Filter by"
-                                handlePress={() => setFilterAttribute('Hard')}
-                                containerStyles="w-20" />
+                            { isNotEmpty(climbs) ?
+                            <Dropdown
+                                title="Filter by" /> : null}
                         </View>
                     </View>
                 )}
