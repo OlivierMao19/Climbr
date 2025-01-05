@@ -43,7 +43,9 @@ const Activities = () => {
                             </View>
                             { isNotEmpty(climbs) ?
                             <Dropdown
-                                title="Filter by" /> : null}
+                                title="Filter by"
+                                handlePress = { filterClimbs } 
+                                itemData={[{id:"Easy", value:"1"}, {id:"Medium", value:"2"}, {id:"Hard", value:"3"}]}/> : null}
                         </View>
                     </View>
                 )}
