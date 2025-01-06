@@ -7,8 +7,20 @@ import EmptyState from '../../components/EmptyState';
 import CustomButton from '../../components/CustomButton';
 import Dropdown from '../../components/Dropdown';
 
-const climbs = [{ id: '1', name: 'Challenging Route', grade: 'Hard', gym: 'Awesome Gym' },
-{ id: '2', name: 'Easy Route', grade: 'Easy', gym: 'Beginner Gym' },]
+const climbs = [
+    { id: '10', name: 'Challenging Route', grade: 1, gym: 'Awesome Gym', type: 'Slabs' },
+    { id: '11', name: 'Easy Route', grade: 2, gym: 'Beginner Gym', type: 'Overhangs' },
+    { id: '12', name: 'Intermediate Route', grade: 3, gym: 'Intermediate Gym', type: 'Normal' },
+    { id: '1', name: 'V1 Route', grade: 1, gym: 'Advanced Gym', type: 'Slabs' },
+    { id: '2', name: 'V2 Route', grade: 2, gym: 'Advanced Gym', type: 'Overhangs' },
+    { id: '3', name: 'V3 Route', grade: 3, gym: 'Advanced Gym', type: 'Normal' },
+    { id: '4', name: 'V4 Route', grade: 4, gym: 'Advanced Gym', type: 'Slabs' },
+    { id: '5', name: 'V5 Route', grade: 5, gym: 'Advanced Gym', type: 'Overhangs' },
+    { id: '6', name: 'V6 Route', grade: 6, gym: 'Advanced Gym', type: 'Normal' },
+    { id: '7', name: 'V7 Route', grade: 7, gym: 'Advanced Gym', type: 'Slabs' },
+    { id: '8', name: 'V8 Route', grade: 8, gym: 'Advanced Gym', type: 'Overhangs' },
+    { id: '9', name: 'V9 Route', grade: 9, gym: 'Advanced Gym', type: 'Normal' },
+];
 
 const Activities = () => {
     const [filterAttribute, setFilterAttribute] = useState(null);
@@ -17,8 +29,12 @@ const Activities = () => {
         if (!attribute) {
             return climbs;
         }
+        else if (['Slabs', 'Overhangs', 'Normal'].includes(attribute)) {
+            return climbs.filter(climb => climb.type === attribute);
+        }
         return climbs.filter(climb => climb.grade === attribute);
     };
+
 
     const filteredClimbs = filterClimbs(climbs, filterAttribute);
 
@@ -30,7 +46,7 @@ const Activities = () => {
     return (
         <SafeAreaView className="bg-primary h-full">
             <FlatList
-                data={ climbs }
+                data={filteredClimbs}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                     <ClimbItem climb={item} />
@@ -41,11 +57,9 @@ const Activities = () => {
                             <View>
                                 <Text className="font-psemibold text-3xl text-white">Activities</Text>
                             </View>
-                            { isNotEmpty(climbs) ?
-                            <Dropdown
-                                title="Filter by"
-                                handlePress = { filterClimbs } 
-                                itemData={[{id:"Easy", value:"1"}, {id:"Medium", value:"2"}, {id:"Hard", value:"3"}]}/> : null}
+                            {isNotEmpty(climbs) ?
+                                <Dropdown
+                                    setFilterAttribute={setFilterAttribute} /> : null}
                         </View>
                     </View>
                 )}

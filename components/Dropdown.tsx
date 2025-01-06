@@ -1,72 +1,72 @@
-import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
-import React, { useCallback, useState } from 'react'
-import { AntDesign } from '@expo/vector-icons';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { SelectCountry } from 'react-native-element-dropdown';
 
-const Dropdown = ({ title, itemData, handlePress, containerStyles }) => {
-    const [expanded, setExpanded] = useState(false);
+const local_data = [
+  { value: null, label: 'No filter' },
+  { value: 'Slabs', label: 'Slabs' },
+  { value: 'Overhangs', label: 'Overhangs' },
+  { value: 'Normal', label: 'Normal' },
+  { value: 1, label: 'V1' },
+  { value: 2, label: 'V2' },
+  { value: 3, label: 'V3' },
+  { value: 4, label: 'V4' },
+  { value: 5, label: 'V5' },
+  { value: 6, label: 'V6' },
+  { value: 7, label: 'V7' },
+  { value: 8, label: 'V8' },
+  { value: 9, label: 'V9' },
+];
 
-    const toggleExpand = useCallback(() => setExpanded(!expanded), [expanded]);
+const Dropdown = ({ setFilterAttribute }) => {
+  const [country, setCountry] = useState(null);
 
-    return (
-        <View className={`${containerStyles}`}>	
-            <TouchableOpacity className="flex-row items-center h-12 justify-between bg-secondary-300 flex-row w-full items-center px-4 rounded-lg border-2 border-red-500" onPress={toggleExpand}>
-                <Text className="text-white opacity-80"> { title } </Text>
-                <AntDesign name={!expanded ? "caretup" : "caretdown"} size={18} color="white"/>
-            </TouchableOpacity>
-            { expanded ? 
-                <View className="p-0 h-0 relative">
-                    <View className="flex-1 px-5 justify-center items-center absolute w-full">
-                        <FlatList 
-                        data={ itemData }
-                        keyExtractor={(item) => item.id}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity activeOpacity={0.8} onPress={ handlePress } className="border-2 border-black-200 bg-secondary-300 w-full justify-between flex-row">
-                                <Text className="text-white font-psemibold"> { item.id } </Text>
-                            </TouchableOpacity>
-                            )}/>
-                    </View>
-                </View> : null } 
-        </View>
-    )
-}
+  return (
+    <SelectCountry
+      style={styles.dropdown}
+      selectedTextStyle={styles.selectedTextStyle}
+      placeholderStyle={styles.placeholderStyle}
+      maxHeight={200}
+      value={country}
+      data={local_data}
+      valueField="value"
+      labelField="label"
+      placeholder="Filter by"
+      onChange={e => {
+        setCountry(e.value);
+        setFilterAttribute(e.value);
+      }}
+    />
+  );
+};
+
+export default Dropdown;
 
 const styles = StyleSheet.create({
-    /**backdrop: {
-      padding: 20,
-      justifyContent: "center",
-      alignItems: "center",
-      flex: 1,
-    },**/
-    optionItem: {
-      height: 40,
-      justifyContent: "center",
-    },
-    separator: {
-      height: 4,
-    },
-    options: {
-      position: "absolute", //-- absolute
-      // top: 53,
-      backgroundColor: "white", //bg-primary
-      width: "100%", //w-full
-      padding: 10, //p-10
-      borderRadius: 6,
-      maxHeight: 250,
-    },
-    text: {
-      fontSize: 15,
-      opacity: 0.8,
-    },
-    button: {
-      height: 50,
-      justifyContent: "space-between",
-      backgroundColor: "#fff",
-      flexDirection: "row",
-      width: "100%",
-      alignItems: "center",
-      paddingHorizontal: 15,
-      borderRadius: 8,
-    },
-  });
-
-export default Dropdown
+  dropdown: {
+    height: 50,
+    width: 100,
+    backgroundColor: '#2A2A3A',
+    borderRadius: 22,
+    paddingHorizontal: 8,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+    color: '#CDCDE0',
+  },
+  selectedTextStyle: {
+    fontSize: 14,
+    color: '#CDCDE0',
+    textAlign: 'left',
+  },
+  item: {
+    padding: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#2A2A3A',
+  },
+  itemText: {
+    fontSize: 16,
+    color: '#000',
+  },
+});
