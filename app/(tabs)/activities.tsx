@@ -26,7 +26,7 @@ const Activities = () => {
     const [filterAttribute, setFilterAttribute] = useState(null);
 
     const filterClimbs = (climbs, attribute) => {
-        if (!attribute) {
+        if (!attribute || attribute === 'null') {
             return climbs;
         }
         else if (['Slabs', 'Overhangs', 'Normal'].includes(attribute)) {

@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { SelectCountry } from 'react-native-element-dropdown';
 
 const local_data = [
-  { value: null, label: 'No filter' },
+  { value: 'null', label: 'No filter' },
   { value: 'Slabs', label: 'Slabs' },
   { value: 'Overhangs', label: 'Overhangs' },
   { value: 'Normal', label: 'Normal' },
@@ -24,6 +24,7 @@ const Dropdown = ({ setFilterAttribute }) => {
   return (
     <SelectCountry
       style={styles.dropdown}
+      containerStyle={styles.containerStyle}
       selectedTextStyle={styles.selectedTextStyle}
       placeholderStyle={styles.placeholderStyle}
       maxHeight={200}
@@ -45,7 +46,7 @@ export default Dropdown;
 const styles = StyleSheet.create({
   dropdown: {
     height: 50,
-    width: 100,
+    width: 110,
     backgroundColor: '#2A2A3A',
     borderRadius: 22,
     paddingHorizontal: 8,
@@ -53,20 +54,17 @@ const styles = StyleSheet.create({
   placeholderStyle: {
     fontSize: 16,
     color: '#CDCDE0',
+    backgroundColor: '#2A2A3A',
   },
   selectedTextStyle: {
     fontSize: 14,
     color: '#CDCDE0',
-    textAlign: 'left',
+    textAlign: 'center',
+    marginLeft: -14,
   },
-  item: {
-    padding: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
+  containerStyle: {
     backgroundColor: '#2A2A3A',
-  },
-  itemText: {
-    fontSize: 16,
-    color: '#000',
+    borderColor: '#2A2A3A',
+    borderRadius: 14,
   },
 });
