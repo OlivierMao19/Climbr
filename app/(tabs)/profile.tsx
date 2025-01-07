@@ -8,7 +8,13 @@ const Profile = () => {
     return (
         <SafeAreaView className="bg-primary h-full">
             <View className="justify-between items-start flex-row">
-                <Text>Profile</Text>
+                <View className="my-6 px-4 space-y-6">
+                    <View className="justify-between items-start flex-row mb-6">
+                        <View>
+                            <Text className="font-psemibold text-3xl text-white">Profile</Text>
+                        </View>
+                    </View>
+                </View>
                 <CustomButton 
                     title="Logout" 
                     handlePress = {() => logOut()}

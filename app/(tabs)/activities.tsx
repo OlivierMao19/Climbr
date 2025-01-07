@@ -34,8 +34,7 @@ const Activities = () => {
         }
         return climbs.filter(climb => climb.grade === attribute);
     };
-
-
+    
     const filteredClimbs = filterClimbs(climbs, filterAttribute);
 
     const isNotEmpty = (data) => {
