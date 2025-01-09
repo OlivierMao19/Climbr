@@ -6,6 +6,9 @@ module.exports = {
   presets: [require("nativewind/preset")],
   theme: {
     extend: {
+      width: {
+        '70': '72%', // Custom width class
+      },
       colors: {
         primary: "#1F1F2A", // A very dark shade of blue
         secondary: {
