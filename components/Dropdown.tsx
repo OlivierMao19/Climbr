@@ -41,6 +41,8 @@ const Dropdown = ({ setFilterAttribute }) => {
         setCountry(e.value);
         setFilterAttribute(e.value);
       }}
+      fontFamily={'Poppins-Medium'}
+      activeColor='#3A7BD5'
     />
   );
 };
@@ -52,10 +54,11 @@ const styles = StyleSheet.create({
     height: 50,
     width: 110,
     backgroundColor: '#2A2A3A',
+    borderRadius: 22,
     paddingHorizontal: 8,
   },
   placeholderStyle: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#CDCDE0',
     backgroundColor: '#2A2A3A',
   },
@@ -63,10 +66,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#CDCDE0',
     textAlign: 'center',
-    marginLeft: -14,
+    marginLeft: -12,
   },
   containerStyle: {
     backgroundColor: '#2A2A3A',
-    zIndex: -1,
+    borderColor: '#2A2A3A',
+    borderRadius: 14,
+    overflow: 'hidden',
   },
 });

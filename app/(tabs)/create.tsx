@@ -71,6 +71,10 @@ const Create = () => {
         setForm({ ...form, status: e });
     };
 
+    const onChangeGym = (e) => {
+        setForm({ ...form, gyms: e });
+    };
+
     return (
         <SafeAreaView className="bg-primary h-full">
             <ScrollView>
@@ -90,6 +94,13 @@ const Create = () => {
                         keyboardType="numeric"
                         maxLength={2} />
                     <FormDropdown
+                        title="Gym"
+                        value={form.gyms}
+                        options={[{ label: 'Beta Bloc', value: '677f4efb001ba3be9141' }, { label: 'In progress', value: '677f4efb001ba3be9141' }]}
+                        setAttribute={onChangeGym}
+                        placeholder="Select Gym" />
+
+                    <FormDropdown
                         title="Climb type"
                         value={form.climbType}
                         options={[{ label: 'Overhang', value: 'Overhang' }, { label: 'Slabs', value: 'Slabs' }, { label: 'Normal', value: 'Normal' }]}
@@ -106,12 +117,9 @@ const Create = () => {
                         value={form.comments}
                         handleChangeText={(e) => setForm({ ...form, comments: e })}
                         placeholder="Start writing..." />
+
                     <DateComponent title="Date" date={form.date} setDate={(date) => setForm({ ...form, date })} />
-                    <ClimbField
-                        title="Gym"
-                        value={form.gyms}
-                        handleChangeText={(e) => setForm({ ...form, gyms: e })}
-                        placeholder="Select gym" />
+
                     <CustomButton
                         title="Create climb"
                         handlePress={createClimb}
