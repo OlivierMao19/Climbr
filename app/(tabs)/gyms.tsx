@@ -42,7 +42,7 @@ const Gyms = () => {
 
     return (
         <SafeAreaView className="bg-primary h-full">
-            <View className="mt-3 px-4 space-y-3"><Text className="font-psemibold text-3xl text-white">Gyms</Text></View>
+            <View className="mt-6 px-4 space-y-3"><Text className="font-psemibold text-3xl text-white">Gyms</Text></View>
             <View className='w-full flex-row flex-1 justify-between px-4'>
                 <GymField
                     title="Gym Name"

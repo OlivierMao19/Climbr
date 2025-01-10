@@ -16,6 +16,10 @@ const local_data = [
   { value: 7, label: 'V7' },
   { value: 8, label: 'V8' },
   { value: 9, label: 'V9' },
+  { value: 10, label: 'V10' },
+  { value: 11, label: 'V11' },
+  { value: 12, label: 'V12' },
+  { value: 13, label: 'V13' },
 ];
 
 const Dropdown = ({ setFilterAttribute }) => {
