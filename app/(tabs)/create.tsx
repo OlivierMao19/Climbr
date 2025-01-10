@@ -8,6 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Gyms from './gyms';
 import ClimbField from '../../components/ClimbField';
 import DateComponent from '../../components/DateComponent';
+import FormDropdown from '../../components/FormDropdown';
 
 const Create = () => {
     const [form, setForm] = useState({
@@ -62,6 +63,14 @@ const Create = () => {
         }
     };
 
+    const onChangeClimbType = (e) => {
+        setForm({ ...form, climbType: e });
+    };
+
+    const onChangeStatus = (e) => {
+        setForm({ ...form, status: e });
+    };
+
     return (
         <SafeAreaView className="bg-primary h-full">
             <ScrollView>
@@ -80,16 +89,18 @@ const Create = () => {
                         placeholder="1 to 13"
                         keyboardType="numeric"
                         maxLength={2} />
-                    <ClimbField
+                    <FormDropdown
                         title="Climb type"
                         value={form.climbType}
-                        handleChangeText={(e) => setForm({ ...form, climbType: e })}
-                        placeholder="Overhang, slabs or normal" />
-                    <ClimbField
+                        options={[{ label: 'Overhang', value: 'Overhang' }, { label: 'Slabs', value: 'Slabs' }, { label: 'Normal', value: 'Normal' }]}
+                        setAttribute={onChangeClimbType}
+                        placeholder="Climb Type" />
+                    <FormDropdown
                         title="Status"
                         value={form.status}
-                        handleChangeText={(e) => setForm({ ...form, status: e })}
-                        placeholder="Completed or in progress" />
+                        options={[{ label: 'Completed', value: true }, { label: 'In progress', value: false }]}
+                        setAttribute={onChangeStatus}
+                        placeholder="Status" />
                     <ClimbField
                         title="Comments"
                         value={form.comments}

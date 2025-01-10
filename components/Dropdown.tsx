@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { SelectCountry } from 'react-native-element-dropdown';
 
 const local_data = [
@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
     height: 50,
     width: 110,
     backgroundColor: '#2A2A3A',
-    borderRadius: 22,
     paddingHorizontal: 8,
   },
   placeholderStyle: {
@@ -68,7 +67,6 @@ const styles = StyleSheet.create({
   },
   containerStyle: {
     backgroundColor: '#2A2A3A',
-    borderColor: '#2A2A3A',
-    borderRadius: 14,
+    zIndex: -1,
   },
 });
