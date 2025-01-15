@@ -5,7 +5,7 @@ import GymItem from '../../components/GymItem'
 import EmptyState from '../../components/EmptyState'
 import CustomButton from '../../components/CustomButton'
 import GymField from '../../components/GymField'
-import { appwriteConfig, databases, getGyms } from '../../lib/appwrite'
+import { appwriteConfig, databases, getGyms, account } from '../../lib/appwrite'
 import { ID } from 'react-native-appwrite';
 import { useGlobalContext } from '../../context/GlobalProvider';
 
@@ -15,11 +15,12 @@ const Gyms = () => {
     const [form, setForm] = useState({
         gymName: ''
     });
-    const { user } = useGlobalContext();
+
 
     const gyms = getGyms();
 
     const AddGym = async () => {
+        const currentAccount = await account.get();
         try {
             if (!form.gymName) {
                 return Alert.alert("Please enter a gym name")
@@ -29,9 +30,9 @@ const Gyms = () => {
                 appwriteConfig.databaseId,
                 appwriteConfig.gymCollectionId,
                 ID.unique(),
-                { gymName: form.gymName, users: user.$id }
+                { gymName: form.gymName, users: currentAccount.$id }
             )
-            console.log(user.$id);
+            console.log(currentAccount.$id);
             Alert.alert("Gym created successfully");
             setForm({ gymName: '' });
             return newGym;
@@ -41,14 +42,9 @@ const Gyms = () => {
         }
     }
 
-    const isNotEmpty = (data) => {
-        return !(data === undefined || data.length === 0);
-    }
-
     return (
         <SafeAreaView className="bg-primary h-full">
             <View className="mt-6 px-4 space-y-3"><Text className="font-psemibold text-3xl text-white">Gyms</Text></View>
-            {isNotEmpty(gyms) ?
             <View className='w-full flex-row flex-1 justify-between px-4'>
                 <GymField
                     title="Gym Name"
@@ -62,11 +58,12 @@ const Gyms = () => {
                     containerStyles={`h-4 mt-12 w-1/4 font-psemibold`}
                     textStyles={`text-sm`}
                 />
-            </View> : null}
+            </View>
             <FlatList className="w-full py-2"
                 data={gyms}
-                keyExtractor={(item) => item.gymName}
+                keyExtractor={(item) => item.$id}
                 renderItem={({ item }) => (
+                    console.log('Rendering Item:', item),
                     <GymItem gym={item} />
                 )}
             />
