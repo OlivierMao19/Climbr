@@ -18,7 +18,7 @@ const Create = () => {
         status: false,
         comments: '',
         date: new Date(),
-        gyms: '677f4efb001ba3be9141',
+        gyms: '',
     });
 
     const { user } = useGlobalContext();

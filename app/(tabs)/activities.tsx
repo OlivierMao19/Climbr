@@ -6,7 +6,9 @@ import ClimbItem from '../../components/ClimbItem';
 import EmptyState from '../../components/EmptyState';
 import CustomButton from '../../components/CustomButton';
 import Dropdown from '../../components/Dropdown';
+import { getClimbs } from '../../lib/appwrite'
 
+/*
 const climbs = [
     { id: '10', name: 'Challenging Route', grade: 1, gym: 'Awesome Gym', type: 'Slabs' },
     { id: '11', name: 'Easy Route', grade: 2, gym: 'Beginner Gym', type: 'Overhangs' },
@@ -20,7 +22,8 @@ const climbs = [
     { id: '7', name: 'V7 Route', grade: 7, gym: 'Advanced Gym', type: 'Slabs' },
     { id: '8', name: 'V8 Route', grade: 8, gym: 'Advanced Gym', type: 'Overhangs' },
     { id: '9', name: 'V9 Route', grade: 9, gym: 'Advanced Gym', type: 'Normal' },
-];
+]; 
+*/
 
 const Activities = () => {
     const [filterAttribute, setFilterAttribute] = useState(null);
@@ -37,15 +40,16 @@ const Activities = () => {
     
     const filteredClimbs = filterClimbs(climbs, filterAttribute);
 
+    const climbs = getClimbs();
+
     const isNotEmpty = (data) => {
-        console.log(data.length);
-        return !(data.length === 0);
+        return !(data === undefined || data.length === 0);
     }
 
     return (
         <SafeAreaView className="bg-primary h-full">
             <FlatList
-                data={filteredClimbs}
+                data={climbs}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                     <ClimbItem climb={item} />
