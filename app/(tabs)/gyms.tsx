@@ -1,5 +1,5 @@
 import { View, Text, FlatList, Alert } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import GymItem from '../../components/GymItem'
 import EmptyState from '../../components/EmptyState'
@@ -7,17 +7,17 @@ import CustomButton from '../../components/CustomButton'
 import GymField from '../../components/GymField'
 import { appwriteConfig, databases, getGyms, account } from '../../lib/appwrite'
 import { ID } from 'react-native-appwrite';
-import { useGlobalContext } from '../../context/GlobalProvider';
+import useAppwrite from '../../lib/useAppwrite';
+
 
 //const gyms = [{ gymName: 'Awesome Gym' }, { gymName: 'Beginner Gym' }, { gymName: 'Intermediate Gym' }, { gymName: 'Advanced Gym' }];
 
 const Gyms = () => {
+    const [ refresh, setRefresh ] = useState(false);
+    const { data: gyms } = useAppwrite(getGyms, [refresh]);
     const [form, setForm] = useState({
         gymName: ''
     });
-
-
-    const gyms = getGyms();
 
     const AddGym = async () => {
         const currentAccount = await account.get();
@@ -33,8 +33,13 @@ const Gyms = () => {
                 { gymName: form.gymName, users: currentAccount.$id }
             )
             console.log(currentAccount.$id);
+
             Alert.alert("Gym created successfully");
+
             setForm({ gymName: '' });
+
+            setRefresh(!refresh);
+
             return newGym;
         } catch (error) {
             console.log(error);
@@ -45,7 +50,7 @@ const Gyms = () => {
     return (
         <SafeAreaView className="bg-primary h-full">
             <View className="mt-6 px-4 space-y-3"><Text className="font-psemibold text-3xl text-white">Gyms</Text></View>
-            <View className='w-full flex-row flex-1 justify-between px-4'>
+            <View className='w-full flex-row justify-between px-4'>
                 <GymField
                     title="Gym Name"
                     value={form.gymName}
@@ -59,11 +64,10 @@ const Gyms = () => {
                     textStyles={`text-sm`}
                 />
             </View>
-            <FlatList className="w-full py-2"
+            <FlatList className="w-full flex-1"
                 data={gyms}
-                keyExtractor={(item) => item.$id}
+                keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
-                    console.log('Rendering Item:', item),
                     <GymItem gym={item} />
                 )}
             />

@@ -3,8 +3,6 @@ import React from 'react'
 import DotMenu from './DotMenu'
 
 const GymItem = ({ gym }) => {
-    console.log(gym);
-
     return (
         <View className="bg-secondary-300 p-3 my-2 mx-4 rounded-lg">
             <View className="flex-row justify-between">

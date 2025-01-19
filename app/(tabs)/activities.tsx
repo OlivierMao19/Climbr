@@ -1,5 +1,5 @@
 import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '../../constants';
 import ClimbItem from '../../components/ClimbItem';
@@ -7,6 +7,7 @@ import EmptyState from '../../components/EmptyState';
 import CustomButton from '../../components/CustomButton';
 import Dropdown from '../../components/Dropdown';
 import { getClimbs } from '../../lib/appwrite'
+import useAppwrite from '../../lib/useAppwrite';
 
 /*
 const climbs = [
@@ -27,6 +28,9 @@ const climbs = [
 
 const Activities = () => {
     const [filterAttribute, setFilterAttribute] = useState(null);
+    //const [ refresh, setRefresh ] = useState(false);
+    const { data: climbs } = useAppwrite(getClimbs, []);
+    console.log(climbs);
 
     const filterClimbs = (climbs, attribute) => {
         if (!attribute || attribute === 'null') {
@@ -37,10 +41,8 @@ const Activities = () => {
         }
         return climbs.filter(climb => climb.grade === attribute);
     };
-    
-    const filteredClimbs = filterClimbs(climbs, filterAttribute);
 
-    const climbs = getClimbs();
+    const filteredClimbs = filterClimbs(climbs, filterAttribute);
 
     const isNotEmpty = (data) => {
         return !(data === undefined || data.length === 0);
@@ -50,7 +52,7 @@ const Activities = () => {
         <SafeAreaView className="bg-primary h-full">
             <FlatList
                 data={climbs}
-                keyExtractor={(item) => item.id}
+                keyExtractor={(item) => item.$id}
                 renderItem={({ item }) => (
                     <ClimbItem climb={item} />
                 )}

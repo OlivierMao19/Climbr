@@ -1,11 +1,9 @@
 import { View, Text, Alert, ScrollView, Button } from 'react-native'
 import React, { useState } from 'react'
-import { appwriteConfig, databases } from '../../lib/appwrite'
+import { appwriteConfig, databases, account } from '../../lib/appwrite'
 import { ID } from 'react-native-appwrite';
-import { useGlobalContext } from '../../context/GlobalProvider';
 import CustomButton from '../../components/CustomButton'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Gyms from './gyms';
 import ClimbField from '../../components/ClimbField';
 import DateComponent from '../../components/DateComponent';
 import FormDropdown from '../../components/FormDropdown';
@@ -21,10 +19,10 @@ const Create = () => {
         gyms: '',
     });
 
-    const { user } = useGlobalContext();
-
     const createClimb = async () => {
         try {
+            const currentAccount = await account.get()
+            
             if (!form.climbName || !form.vgrade || !form.climbType || !form.date) {
                 return Alert.alert("Please fill all fields");
             }
@@ -33,7 +31,7 @@ const Create = () => {
                 appwriteConfig.databaseId,
                 appwriteConfig.climbCollectionId,
                 ID.unique(),
-                { climbName: form.climbName, climbType: form.climbType, status: form.status, users: user.$id, vgrade: form.vgrade, gyms: '677f4efb001ba3be9141', date: form.date.toISOString().split('T')[0] }
+                { climbName: form.climbName, climbType: form.climbType, status: form.status, users: currentAccount.$id, vgrade: form.vgrade, gyms: '677f4efb001ba3be9141', date: form.date.toISOString().split('T')[0] }
             );
 
             return newClimb;
